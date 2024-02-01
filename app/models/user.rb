@@ -8,6 +8,7 @@ class User < ApplicationRecord
     validates :last_name, presence: true
 
     has_many :posts
+    has_one :profile
 
     private
     def validate_username
