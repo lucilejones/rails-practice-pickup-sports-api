@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  content: MyText
+  start_date_time: 2024-02-02 11:53:23
+  end_date_time: 2024-02-02 11:53:23
+  guests: 1
+
+two:
+  user: two
+  content: MyText
+  start_date_time: 2024-02-02 11:53:23
+  end_date_time: 2024-02-02 11:53:23
+  guests: 1
