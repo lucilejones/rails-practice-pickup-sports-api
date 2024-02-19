@@ -18,5 +18,6 @@ Rails.application.routes.draw do
     get 'posts', to: 'users#posts_index'
   end
 
-  resources :posts, only: [:create, :update, :destroy]
+  # resources :posts, only: [:create, :update, :destroy]
+  resources :posts
 end

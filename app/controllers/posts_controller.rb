@@ -1,5 +1,14 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: [:update, :destroy]
+    before_action :set_post, only: [:update, :destroy, :show]
+
+    def index
+      posts = Post.all
+      render json: posts, status: :ok
+    end
+  
+    def show
+      render json: @post, status: :ok
+    end
 
     def create
       post = Post.new(post_params)
@@ -12,7 +21,7 @@ class PostsController < ApplicationController
     end
   
     def update
-      if @post.update(user_params)
+      if @post.update(post_params)
           render json: @post, status: :ok
       else
           render json: @post.errors, status: :unprocessable_entity
@@ -30,7 +39,7 @@ class PostsController < ApplicationController
     private
   
     def set_post
-      @post = User.find(params[:id])
+      @post = Post.find(params[:id])
     end
   
     def post_params
