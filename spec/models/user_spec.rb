@@ -21,6 +21,8 @@ RSpec.describe User, type: :model do
       user = build(:user, email: nil)
       expect(user).not_to be_valid
     end
+
+    
   end
 
   context 'Uniqueness tests' do
