@@ -14,6 +14,8 @@ class User < ApplicationRecord
     has_many :comments, dependent: :destroy
     has_one :location, as: :locationable, dependent: :destroy
 
+    after_create :create_profile
+
     has_many :created_events, class_name: 'Event', foreign_key: 'user_id'
 
     has_many :event_participants
