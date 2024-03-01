@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+  get 'web/bootstrap'
   scope '/' do
     post 'login', to: 'sessions#create'
   end
 
   resources :events
   scope :profiles do
-    get ':username', to "profiles#show"
+    get ':username', to: "profiles#show"
   end
   resources :posts
   resources :users do

@@ -1,10 +1,20 @@
 class EventsController < ApplicationController
     before_action :set_event, only: [:show, :update, :destroy]
-    before_action :authenticate_request
+    before_action :authenticate_request, except: [:index]
 
+    # def index
+    #     events = Event.all
+    #     render json: events, status: :ok
+    # end
+    
     def index
-        events = Event.all
-        render json: events, status: :ok
+        events = Event.order(created_at: :desc).page(params[:page]).per(12)
+    
+        render json: {
+            events: EventBlueprint.render_as_hash(events, view: :short),
+            total_pages: events.total_pages,
+            current_page: events.current_page
+        }
     end
 
     def show
