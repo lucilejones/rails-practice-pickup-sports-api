@@ -1,10 +1,17 @@
 class Event < ApplicationRecord
+include Rails.application.routes.url_helpers
+
+  # active storage
+  has_one_attached :cover_image
+
+  # validations
   validates :start_date_time, :end_date_time, :guests, presence: true
   validates :title, presence: true
 
   validate :start_date_time_cannot_be_in_past,
   :end_date_time_cannot_be_before_start_date_time
 
+  # associations
   belongs_to :user
   has_one :location, as: :locationable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
@@ -24,5 +31,9 @@ class Event < ApplicationRecord
     if end_date_time < start_date_time
         errors.add(:end_date_time, "can't be before start_date_time")
     end
+  end
+
+  def cover_image_url
+    rails_blob_url(self.cover_image, only_path: false) if self.cover_image.attached?
   end
 end

@@ -18,7 +18,8 @@ class EventsController < ApplicationController
     end
 
     def show
-        render json: @event, status: :ok
+        # render json: @event, status: :ok
+        render json: EventBlueprint.render_as_hash(@event, view: :long), status: :ok
     end
 
     def create
@@ -55,6 +56,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-        params.permit(:title, :content, :start_date_time, :end_date_time, :guests, :sport_ids => [])
+        params.permit(:title, :content, :start_date_time, :end_date_time, :guests, :cover_image, :sport_ids => [])
     end
 end
