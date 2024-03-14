@@ -12,12 +12,15 @@ include Rails.application.routes.url_helpers
   :end_date_time_cannot_be_before_start_date_time
 
   # associations
-  belongs_to :user
+  # belongs_to :user
+  belongs_to :creator, class_name: "User", foreign_key: "user_id"
+
   has_one :location, as: :locationable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :event_participants
-  has_many :users, through: :event_participants
+  # has_many :users, through: :event_participants
+  has_many :participants, through: :event_participants, source: :user
 
   has_and_belongs_to_many :sports
 
@@ -35,5 +38,9 @@ include Rails.application.routes.url_helpers
 
   def cover_image_url
     rails_blob_url(self.cover_image, only_path: false) if self.cover_image.attached?
+  end
+
+  def has_joined?(user)
+    self.participants.include?(user);
   end
 end
